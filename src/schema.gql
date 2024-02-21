@@ -1,0 +1,83 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Medication {
+  medicationNo: Int!
+  medicationDate: DateTime!
+  comments: String!
+  medicationStatus: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type VitalSigns {
+  vitalSignsNo: Int!
+  date: DateTime!
+  bloodPressure: String!
+  heartRate: String!
+  temperature: String!
+  respiratoryRate: String!
+}
+
+type PatientInformation {
+  patientId: Int!
+  firstName: String!
+  lastName: String!
+  dateOfBirth: DateTime!
+  gender: String!
+  city: String!
+  state: String!
+  zip: String!
+  country: String!
+  phoneNo: String!
+  allergies: String!
+  codeStatus: String!
+  medications: [Medication!]
+  vital_signs: [VitalSigns!]
+}
+
+type Query {
+  getPatientInformation(patientId: Int!): PatientInformation!
+  getPatientMedication(patientId: Int!): [Medication!]!
+  getPatientVitalSigns(patientId: Int!): [VitalSigns!]!
+}
+
+type Mutation {
+  createPatientInformation(createPatientInformationInput: CreatePatientInformationInput!): PatientInformation!
+  createMedicationForPatient(createMedicationForPatientInput: createMedicationForPatientInput!): Medication!
+  createVitalSignsForPatient(createVitalSignsForPatientInput: createVitalSignsForPatientInput!): VitalSigns!
+}
+
+input CreatePatientInformationInput {
+  firstName: String!
+  lastName: String!
+  dateOfBirth: DateTime!
+  gender: String!
+  city: String!
+  state: String!
+  zip: String!
+  country: String!
+  phoneNo: String!
+  allergies: String!
+  codeStatus: String!
+}
+
+input createMedicationForPatientInput {
+  patientId: Int!
+  medicationDate: DateTime!
+  comments: String!
+  medicationStatus: String!
+}
+
+input createVitalSignsForPatientInput {
+  patientId: Int!
+  date: DateTime!
+  bloodPressure: String!
+  heartRate: String!
+  temperature: String!
+  respiratoryRate: String!
+}
