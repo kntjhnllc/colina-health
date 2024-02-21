@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Medication } from './medication.entity';
 import { Repository } from 'typeorm';
-import { createMedicationForPatientInput } from './dto/create-medication-for-patient.input';
+import { CreateMedicationForPatientInput } from './dto/create-medication-for-patient.input';
 import { PatientInformation } from 'src/patient_information/patient_information.entity';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class MedicationService {
         @InjectRepository(PatientInformation) private patientInformationRepository: Repository<PatientInformation>, // Inject the repository for PatientInformation
     ) {}
 
-    async createMedicationForPatient(createMedicationForPatientInput: createMedicationForPatientInput): Promise<Medication> {
+    async createMedicationForPatient(createMedicationForPatientInput: CreateMedicationForPatientInput): Promise<Medication> {
         const { patientId, ...medicationData } = createMedicationForPatientInput;
 
         const medication = new Medication();

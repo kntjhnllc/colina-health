@@ -2,7 +2,7 @@ import { Args, Int, Mutation, Resolver } from '@nestjs/graphql';
 import { Medication } from './medication.entity';
 import { MedicationService } from './medication.service';
 import { Query } from '@nestjs/graphql';
-import { createMedicationForPatientInput } from './dto/create-medication-for-patient.input';
+import { CreateMedicationForPatientInput } from './dto/create-medication-for-patient.input';
 
 @Resolver(() => Medication)
 export class MedicationResolver {
@@ -30,7 +30,7 @@ export class MedicationResolver {
 
 
     // mutation {
-    //     createMedicationForPatient(createMedicationForPatientInput: {
+    //     CreateMedicationForPatient(createMedicationForPatientInput: {
     //       patientId: 1, 
     //       medicationDate: "2024-02-21T12:00:00Z", 
     //       comments: "Take one tablet daily with meals",
@@ -44,7 +44,7 @@ export class MedicationResolver {
 
     @Mutation(() => Medication)
     async createMedicationForPatient(
-        @Args('createMedicationForPatientInput') createMedicationForPatientInput: createMedicationForPatientInput,
+        @Args('createMedicationForPatientInput') createMedicationForPatientInput: CreateMedicationForPatientInput,
     ): Promise<Medication> {
         return this.medicationService.createMedicationForPatient(createMedicationForPatientInput);
     }

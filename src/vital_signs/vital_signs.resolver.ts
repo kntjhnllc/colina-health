@@ -53,6 +53,11 @@ export class VitalSignsResolver {
     async createVitalSignsForPatient(
         @Args('createVitalSignsForPatientInput') createVitalSignsForPatientInput:createVitalSignsForPatientInput,
     ): Promise<VitalSigns> {
+        try {
             return this.vitalSignsService.createVitalSignsForPatient(createVitalSignsForPatientInput);
+        } catch (error) {
+            console.error('Error creating vital signs for patient:', error);
+            throw new Error('Failed to create vital signs for patient');
+        }
     }
 }

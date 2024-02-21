@@ -2,7 +2,7 @@ import { Field, InputType, Int } from "@nestjs/graphql";
 
 
 @InputType()
-export class createMedicationForPatientInput {
+export class CreateMedicationForPatientInput {
 
     @Field(() => Int)
     patientId: number;

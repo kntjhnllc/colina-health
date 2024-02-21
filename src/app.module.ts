@@ -9,6 +9,7 @@ import { PatientInformationResolver } from './patient_information/patient_inform
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MedicationModule } from './medication/medication.module';
 import { VitalSignsModule } from './vital_signs/vital_signs.module';
+import { MedicalHistoryModule } from './medical_history/medical_history.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -30,7 +31,7 @@ import { VitalSignsModule } from './vital_signs/vital_signs.module';
     driver: ApolloDriver,
     autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
   }), 
-  PatientInformationModule, MedicationModule, VitalSignsModule
+  PatientInformationModule, MedicationModule, VitalSignsModule, MedicalHistoryModule
 ],
   controllers: [AppController],
   providers: [AppService],

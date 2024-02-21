@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type MedicalHistory {
+  medicalHistoryNo: Int!
+  allergies: String!
+  medicalConditions: String!
+  surgeries: String!
+  familyHistory: String!
+}
+
 type Medication {
   medicationNo: Int!
   medicationDate: DateTime!
@@ -38,18 +46,23 @@ type PatientInformation {
   codeStatus: String!
   medications: [Medication!]
   vital_signs: [VitalSigns!]
+  medical_history: [MedicalHistory!]
 }
 
 type Query {
+  getAllPatientsWithDetails: [PatientInformation!]!
   getPatientInformation(patientId: Int!): PatientInformation!
   getPatientMedication(patientId: Int!): [Medication!]!
   getPatientVitalSigns(patientId: Int!): [VitalSigns!]!
+  getPatientMedicalHistory(patientId: Int!): [MedicalHistory!]!
 }
 
 type Mutation {
   createPatientInformation(createPatientInformationInput: CreatePatientInformationInput!): PatientInformation!
-  createMedicationForPatient(createMedicationForPatientInput: createMedicationForPatientInput!): Medication!
+  updatePatientInformation(updatePatientInformationInput: UpdatePatientInformationInput!): PatientInformation!
+  createMedicationForPatient(createMedicationForPatientInput: CreateMedicationForPatientInput!): Medication!
   createVitalSignsForPatient(createVitalSignsForPatientInput: createVitalSignsForPatientInput!): VitalSigns!
+  createMedicalHistoryForPatient(createMedicalHistoryForPatientInput: CreateMedicalHistoryForPatientInput!): MedicalHistory!
 }
 
 input CreatePatientInformationInput {
@@ -66,7 +79,22 @@ input CreatePatientInformationInput {
   codeStatus: String!
 }
 
-input createMedicationForPatientInput {
+input UpdatePatientInformationInput {
+  patientId: Int!
+  firstName: String
+  lastName: String
+  dateOfBirth: DateTime
+  gender: String
+  city: String
+  state: String
+  zip: String
+  country: String
+  phoneNo: String
+  allergies: String
+  codeStatus: String
+}
+
+input CreateMedicationForPatientInput {
   patientId: Int!
   medicationDate: DateTime!
   comments: String!
@@ -80,4 +108,12 @@ input createVitalSignsForPatientInput {
   heartRate: String!
   temperature: String!
   respiratoryRate: String!
+}
+
+input CreateMedicalHistoryForPatientInput {
+  patientId: Int!
+  allergies: String!
+  medicalCondition: String!
+  surgeries: String!
+  familyHistory: String!
 }

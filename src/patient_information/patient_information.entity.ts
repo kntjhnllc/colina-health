@@ -1,4 +1,5 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { MedicalHistory } from "src/medical_history/medical_history.entity";
 import { Medication } from "src/medication/medication.entity";
 import { VitalSigns } from "src/vital_signs/vital_signs.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
@@ -67,4 +68,9 @@ export class PatientInformation{
     @OneToMany(() => VitalSigns, vital_signs => vital_signs.patient)
     @Field(() => [VitalSigns], { nullable: true }) // Define the field type as an array of VitalSigns objects
     vital_signs: VitalSigns[];
+
+    //Patient information to table MedicalHistory
+    @OneToMany(() => MedicalHistory, medical_history => medical_history.patient)
+    @Field(() => [MedicalHistory], { nullable: true }) // Define the field type as an array of VitalSigns objects
+    medical_history: MedicalHistory[];
 }
