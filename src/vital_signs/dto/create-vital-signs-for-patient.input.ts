@@ -1,24 +1,22 @@
-import { Field, InputType, Int } from "@nestjs/graphql";
-
+import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
-export class createVitalSignsForPatientInput{
+export class CreateVitalSignsForPatientInput {
+  @Field(() => Int)
+  patientId: number;
 
-    @Field(() => Int)
-    patientId: number;
+  @Field()
+  date: Date;
 
-    @Field()
-    date: Date
+  @Field()
+  bloodPressure: string;
 
-    @Field()
-    bloodPressure: string;
+  @Field()
+  heartRate: string;
 
-    @Field()
-    heartRate: string;
+  @Field()
+  temperature: string;
 
-    @Field()
-    temperature: string;
-
-    @Field()
-    respiratoryRate: string;
+  @Field()
+  respiratoryRate: string;
 }

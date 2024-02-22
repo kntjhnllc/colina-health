@@ -2,6 +2,32 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Appointment {
+  appointmentId: Int!
+  dateCreated: DateTime!
+  appointmentDate: DateTime!
+  appointmentTime: String!
+  details: String!
+  appointmentStatus: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type EmergencyContact {
+  contactId: Int!
+  firstName: String!
+  lastName: String!
+  phoneNumber: String!
+  patientRelationship: String!
+  city: String!
+  state: String!
+  zip: String!
+  country: String!
+}
+
 type LabResults {
   labResultsNo: Int!
   date: DateTime!
@@ -12,11 +38,6 @@ type LabResults {
   hdlCholesterol: String!
   triglycerides: String!
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 type MedicalHistory {
   medicalHistoryNo: Int!
@@ -31,6 +52,12 @@ type Medication {
   medicationDate: DateTime!
   comments: String!
   medicationStatus: String!
+}
+
+type Notes {
+  noteNo: Int!
+  date: DateTime!
+  notes: String!
 }
 
 type VitalSigns {
@@ -59,6 +86,9 @@ type PatientInformation {
   vital_signs: [VitalSigns!]
   medical_history: [MedicalHistory!]
   lab_results: [LabResults!]
+  notes: [Notes!]
+  appointment: [Appointment!]
+  emergency_contact: [EmergencyContact!]
 }
 
 type Query {
@@ -68,15 +98,21 @@ type Query {
   getPatientVitalSigns(patientId: Int!): [VitalSigns!]!
   getPatientMedicalHistory(patientId: Int!): [MedicalHistory!]!
   getPatientLabResults(patientId: Int!): [LabResults!]!
+  getPatientNotes(patientId: Int!): [Notes!]!
+  getPatientAppointment(patientId: Int!): [Appointment!]!
+  getPatientEmergencyContact(patientId: Int!): [EmergencyContact!]!
 }
 
 type Mutation {
   createPatientInformation(createPatientInformationInput: CreatePatientInformationInput!): PatientInformation!
   updatePatientInformation(updatePatientInformationInput: UpdatePatientInformationInput!): PatientInformation!
   createMedicationForPatient(createMedicationForPatientInput: CreateMedicationForPatientInput!): Medication!
-  createVitalSignsForPatient(createVitalSignsForPatientInput: createVitalSignsForPatientInput!): VitalSigns!
+  createVitalSignsForPatient(createVitalSignsForPatientInput: CreateVitalSignsForPatientInput!): VitalSigns!
   createMedicalHistoryForPatient(createMedicalHistoryForPatientInput: CreateMedicalHistoryForPatientInput!): MedicalHistory!
   createLabResultsForPatient(createLabResultsForPatientInput: CreateLabResultsForPatientInput!): LabResults!
+  createNotesForPatient(createNotesForPatientInput: CreateNotesForPatientInput!): Notes!
+  createAppointmentForPatient(createAppointmentForPatientInput: CreateAppointmentForPatientInput!): Appointment!
+  createEmergencyContactForPatient(createEmergencyContactForPatientInput: CreateEmergencyContactForPatientInput!): EmergencyContact!
 }
 
 input CreatePatientInformationInput {
@@ -115,7 +151,7 @@ input CreateMedicationForPatientInput {
   medicationStatus: String!
 }
 
-input createVitalSignsForPatientInput {
+input CreateVitalSignsForPatientInput {
   patientId: Int!
   date: DateTime!
   bloodPressure: String!
@@ -141,4 +177,31 @@ input CreateLabResultsForPatientInput {
   ldlCholesterol: String!
   hdlCholesterol: String!
   triglycerides: String!
+}
+
+input CreateNotesForPatientInput {
+  patientId: Float!
+  date: DateTime!
+  notes: String!
+}
+
+input CreateAppointmentForPatientInput {
+  patientId: Float!
+  dateCreated: DateTime!
+  appointmentDate: DateTime!
+  appointmentTime: String!
+  details: String!
+  appointmentStatus: String!
+}
+
+input CreateEmergencyContactForPatientInput {
+  patientId: Float!
+  firstName: String!
+  lastName: String!
+  phoneNumber: String!
+  patientRelationship: String!
+  city: String!
+  state: String!
+  zip: String!
+  country: String!
 }

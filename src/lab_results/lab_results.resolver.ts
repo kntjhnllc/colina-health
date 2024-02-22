@@ -7,6 +7,19 @@ import { CreateLabResultsForPatientInput } from './dto/create-lab-results-for-pa
 export class LabResultsResolver {
   constructor(private labResultsService: LabResultsService) {}
 
+  // query {
+  //   getPatientLabResults(patientId: 1) {
+  //     labResultsNo
+  //     date
+  //     hemoglobinA1c
+  //     fastingBloodGlucose
+  //     totalCholesterol
+  //     ldlCholesterol
+  //     hdlCholesterol
+  //     triglycerides
+  //   }
+  // }
+
   @Query(() => [LabResults], { name: 'getPatientLabResults' })
   async getPatientLabResults(
     @Args('patientId', { type: () => Int }) patientId: number,

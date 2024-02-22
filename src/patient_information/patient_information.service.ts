@@ -19,6 +19,9 @@ export class PatientInformationService {
         'vital_signs',
         'medical_history',
         'lab_results',
+        'notes',
+        'appointment',
+        'emergency_contact',
       ],
     });
   }

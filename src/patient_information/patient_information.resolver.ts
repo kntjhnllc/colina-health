@@ -11,50 +11,74 @@ export class PatientInformationResolver {
 
   // QUERY ALL PATIENT WITH DETAILS
   // query {
-  //     getAllPatientsWithDetails {
-  //       patientId
+  //   getAllPatientsWithDetails {
+  //     patientId
+  //     firstName
+  //     lastName
+  //     dateOfBirth
+  //     gender
+  //     city
+  //     state
+  //     zip
+  //     country
+  //     phoneNo
+  //     allergies
+  //     codeStatus
+  //     medications {
+  //       medicationNo
+  //       medicationDate
+  //       comments
+  //       medicationStatus
+  //     }
+  //     vital_signs {
+  //       date
+  //     bloodPressure
+  //     heartRate
+  //       temperature
+  //       respiratoryRate
+  //     }
+  //     medical_history {
+  //       allergies
+  //       medicalConditions
+  //       surgeries
+  //       familyHistory
+  //     }
+  //     lab_results{
+  //       labResultsNo
+  //       date
+  //       hemoglobinA1c
+  //       fastingBloodGlucose
+  //       totalCholesterol
+  //       ldlCholesterol
+  //       hdlCholesterol
+  //       triglycerides
+  //     }
+  //     notes{
+  //       noteNo
+  //       date
+  //       notes
+  //     }
+  //     appointment{
+  //       appointmentId
+  //       dateCreated
+  //       appointmentDate
+  //       appointmentTime
+  //       details
+  //       appointmentStatus
+  //     }
+  //     emergency_contact{
+  //       contactId
   //       firstName
   //       lastName
-  //       dateOfBirth
-  //       gender
+  //       phoneNumber
+  //       patientRelationship
   //       city
   //       state
   //       zip
   //       country
-  //       phoneNo
-  //       allergies
-  //       codeStatus
-  //       medications {
-  //         medicationNo
-  //         medicationDate
-  //         comments
-  //         medicationStatus
-  //       }
-  //       vital_signs {
-  //         date
-  //       bloodPressure
-  //       heartRate
-  //         temperature
-  //         respiratoryRate
-  //       }
-  //       medical_history {
-  //         allergies
-  //         medicalConditions
-  //         surgeries
-  //         familyHistory
-  //       }
-  // lab_results{
-  //     labResultsNo
-  //     date
-  //     hemoglobinA1c
-  //     fastingBloodGlucose
-  //     totalCholesterol
-  //     ldlCholesterol
-  //     hdlCholesterol
-  //     triglycerides
-  //   }
   //     }
   //   }
+  // }
 
   @Query(() => [PatientInformation], { name: 'getAllPatientsWithDetails' })
   async getAllPatientsWithDetails(): Promise<PatientInformation[]> {

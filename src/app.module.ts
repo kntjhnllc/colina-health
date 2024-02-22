@@ -5,13 +5,15 @@ import { PatientInformationModule } from './patient_information/patient_informat
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
-import { PatientInformationResolver } from './patient_information/patient_information.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MedicationModule } from './medication/medication.module';
 import { VitalSignsModule } from './vital_signs/vital_signs.module';
 import { MedicalHistoryModule } from './medical_history/medical_history.module';
 import { LabResultsModule } from './lab_results/lab_results.module';
 import { ConfigModule } from '@nestjs/config';
+import { NotesModule } from './notes/notes.module';
+import { AppointmentModule } from './appointment/appointment.module';
+import { EmergencyContactModule } from './emergency_contact/emergency_contact.module';
 
 @Module({
   imports: [
@@ -36,6 +38,9 @@ import { ConfigModule } from '@nestjs/config';
     VitalSignsModule,
     MedicalHistoryModule,
     LabResultsModule,
+    NotesModule,
+    AppointmentModule,
+    EmergencyContactModule,
   ],
   controllers: [AppController],
   providers: [AppService],
