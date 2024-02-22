@@ -1,4 +1,5 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { LabResults } from "src/lab_results/lab_results.entity";
 import { MedicalHistory } from "src/medical_history/medical_history.entity";
 import { Medication } from "src/medication/medication.entity";
 import { VitalSigns } from "src/vital_signs/vital_signs.entity";
@@ -61,16 +62,21 @@ export class PatientInformation{
 
     //Patient information to table medication
     @OneToMany(() => Medication, medication => medication.patient)
-    @Field(() => [Medication], { nullable: true }) // Define the field type as an array of Medication objects
+    @Field(() => [Medication], { nullable: true }) 
     medications: Medication[];
 
     //Patient information to table VitalSigns
     @OneToMany(() => VitalSigns, vital_signs => vital_signs.patient)
-    @Field(() => [VitalSigns], { nullable: true }) // Define the field type as an array of VitalSigns objects
+    @Field(() => [VitalSigns], { nullable: true })
     vital_signs: VitalSigns[];
 
     //Patient information to table MedicalHistory
     @OneToMany(() => MedicalHistory, medical_history => medical_history.patient)
-    @Field(() => [MedicalHistory], { nullable: true }) // Define the field type as an array of VitalSigns objects
+    @Field(() => [MedicalHistory], { nullable: true }) 
     medical_history: MedicalHistory[];
+
+    //Patient information to table LabResults
+    @OneToMany(() => LabResults, lab_results => lab_results.patient)
+    @Field(() => [LabResults], { nullable: true })
+    lab_results: LabResults[];
 }

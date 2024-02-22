@@ -10,29 +10,33 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MedicationModule } from './medication/medication.module';
 import { VitalSignsModule } from './vital_signs/vital_signs.module';
 import { MedicalHistoryModule } from './medical_history/medical_history.module';
+import { LabResultsModule } from './lab_results/lab_results.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
-    type: 'postgres',
-    host: 'localhost',
-    username: 'postgres',
-    password:'postgres', 
-    port: 5432,
-    database: 'ColinaHealth_db',
-    synchronize: true,
-    logging: true,
-    entities: ["dist/**/*.entity{.ts,.js}"],
-    extra: {
-      trustedConnection: true,
-      trustServerCertificate: true,
-      integratedSecurity: true
-    },
-  }),GraphQLModule.forRoot<ApolloDriverConfig>({
-    driver: ApolloDriver,
-    autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-  }), 
-  PatientInformationModule, MedicationModule, VitalSignsModule, MedicalHistoryModule
-],
+  imports: [
+    ConfigModule.forRoot({ envFilePath: '.env.local' }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT, 10),
+      username: process.env.DB_USERNAME,
+      password: String(process.env.DB_PASSWORD),
+      database: String(process.env.DB_DATABASE),
+      synchronize: process.env.DB_SYNCHRONIZE === 'true',
+      logging: process.env.DB_LOGGING === 'true',
+      entities: [join(__dirname, '**', '*.entity.{ts,js}')],
+    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+    }),
+    PatientInformationModule,
+    MedicationModule,
+    VitalSignsModule,
+    MedicalHistoryModule,
+    LabResultsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

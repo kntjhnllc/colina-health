@@ -7,46 +7,56 @@ import { UpdatePatientInformationInput } from './dto/update-patient-information.
 
 @Injectable()
 export class PatientInformationService {
-    constructor(
-        @InjectRepository(PatientInformation) 
-        private patientInformationRepository: Repository<PatientInformation>,
-    ) {}
+  constructor(
+    @InjectRepository(PatientInformation)
+    private patientInformationRepository: Repository<PatientInformation>,
+  ) {}
 
-    async getAllPatientsWithDetails(): Promise<PatientInformation[]> {
-        return this.patientInformationRepository.find({
-            relations: ['medications', 'vital_signs', 'medical_history'],
-        });
-    }
+  async getAllPatientsWithDetails(): Promise<PatientInformation[]> {
+    return this.patientInformationRepository.find({
+      relations: [
+        'medications',
+        'vital_signs',
+        'medical_history',
+        'lab_results',
+      ],
+    });
+  }
 
-    async createPatientInformation(createPatientInformationInput: CreatePatientInformationInput): Promise<PatientInformation>{
-        const newPatientInformation = this.patientInformationRepository.create(createPatientInformationInput);
+  async createPatientInformation(
+    createPatientInformationInput: CreatePatientInformationInput,
+  ): Promise<PatientInformation> {
+    const newPatientInformation = this.patientInformationRepository.create(
+      createPatientInformationInput,
+    );
 
-        return this.patientInformationRepository.save(newPatientInformation);
-    }
+    return this.patientInformationRepository.save(newPatientInformation);
+  }
 
-    async getPatientInformationById(patientId: number): Promise<PatientInformation> {
-        return this.patientInformationRepository.findOneOrFail({
-            where: { patientId }
-        })
-    }
+  async getPatientInformationById(
+    patientId: number,
+  ): Promise<PatientInformation> {
+    return this.patientInformationRepository.findOneOrFail({
+      where: { patientId },
+    });
+  }
 
-    //Update Personal Information
+  //Update Personal Information
 
-    async updatePatientInformation(
-        updatePatientInformationInput: UpdatePatientInformationInput,
-      ): Promise<PatientInformation> {
-        const { patientId, ...updateData } = updatePatientInformationInput;
-    
-        // Find the patient record by ID
-        const patient = await this.patientInformationRepository.findOneOrFail({
-            where: { patientId },
-          });
-    
-        // Update the patient record with the new data
-        Object.assign(patient, updateData);
-    
-        // Save the updated patient record
-        return this.patientInformationRepository.save(patient);
-      }
+  async updatePatientInformation(
+    updatePatientInformationInput: UpdatePatientInformationInput,
+  ): Promise<PatientInformation> {
+    const { patientId, ...updateData } = updatePatientInformationInput;
 
+    // Find the patient record by ID
+    const patient = await this.patientInformationRepository.findOneOrFail({
+      where: { patientId },
+    });
+
+    // Update the patient record with the new data
+    Object.assign(patient, updateData);
+
+    // Save the updated patient record
+    return this.patientInformationRepository.save(patient);
+  }
 }
