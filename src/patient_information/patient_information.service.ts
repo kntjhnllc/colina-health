@@ -25,7 +25,7 @@ export class PatientInformationService {
       ],
     });
   }
-
+  // test
   async createPatientInformation(
     createPatientInformationInput: CreatePatientInformationInput,
   ): Promise<PatientInformation> {
