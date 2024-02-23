@@ -9,7 +9,7 @@ import { UpdatePatientInformationInput } from './dto/update-patient-information.
 export class PatientInformationResolver {
   constructor(private patientInformationService: PatientInformationService) {}
 
-  // QUERY ALL PATIENT WITH DETAILS
+  // GRAPHQL QUERY ALL PATIENT WITH DETAILS
   // query {
   //   getAllPatientsWithDetails {
   //     patientId
@@ -77,6 +77,49 @@ export class PatientInformationResolver {
   //       zip
   //       country
   //     }
+  //   }
+  // }
+
+  // FRONTEND GRAPHQL MUTATION
+  //
+  // mutation CreatePatientInformation(
+  //   $firstName: String!,
+  //   $lastName: String!,
+  //   $dateOfBirth: DateTime!,
+  //   $gender: String!,
+  //   $city: String!,
+  //   $state: String!,
+  //   $zip: String!,
+  //   $country: String!,
+  //   $phoneNo: String!,
+  //   $allergies: String!,
+  //   $codeStatus: String!
+  // ) {
+  //   createPatientInformation(createPatientInformationInput: {
+  //     firstName: $firstName,
+  //     lastName: $lastName,
+  //     dateOfBirth: $dateOfBirth,
+  //     gender: $gender,
+  //     city: $city,
+  //     state: $state,
+  //     zip: $zip,
+  //     country: $country,
+  //     phoneNo: $phoneNo,
+  //     allergies: $allergies,
+  //     codeStatus: $codeStatus
+  //   }) {
+  //     patientId
+  //     firstName
+  //     lastName
+  //     dateOfBirth
+  //     gender
+  //     city
+  //     state
+  //     zip
+  //     country
+  //     phoneNo
+  //     allergies
+  //     codeStatus
   //   }
   // }
 

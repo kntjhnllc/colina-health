@@ -4,6 +4,7 @@ import { VitalSigns } from './vital_signs.entity';
 import { Repository } from 'typeorm';
 import { PatientInformation } from 'src/patient_information/patient_information.entity';
 import { CreateVitalSignsForPatientInput } from './dto/create-vital-signs-for-patient.input';
+import { UpdateVitalSignsForPatientInput } from './dto/update-vital-signs-for-patient.input';
 
 @Injectable()
 export class VitalSignsService {
@@ -47,5 +48,21 @@ export class VitalSignsService {
         },
       },
     });
+  }
+
+  //Update Vital Signs for Patient
+
+  async updateVitalSignsForPatient(
+    updateVitalSignsForPatientInput: UpdateVitalSignsForPatientInput,
+  ): Promise<VitalSigns> {
+    const { vitalSignsNo, ...updateData } = updateVitalSignsForPatientInput;
+
+    const vital_signs = await this.vitalSignsRepository.findOneOrFail({
+      where: { vitalSignsNo },
+    });
+
+    Object.assign(vital_signs, updateData);
+
+    return this.vitalSignsRepository.save(vital_signs);
   }
 }

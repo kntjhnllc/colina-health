@@ -4,6 +4,7 @@ import { EmergencyContact } from './emergency-contact.entity';
 import { Repository } from 'typeorm';
 import { PatientInformation } from 'src/patient_information/patient_information.entity';
 import { CreateEmergencyContactForPatientInput } from './dto/create-emergency-contact-for-patient.input';
+import { UpdateEmergencyContactForPatientInput } from './dto/update-emergency-contact.input';
 
 @Injectable()
 export class EmergencyContactService {
@@ -56,5 +57,22 @@ export class EmergencyContactService {
         },
       },
     });
+  }
+
+  //Update emergency contact for patient
+
+  async updateEmergencyContactForPatient(
+    updateEmergencyContactForPatientInput: UpdateEmergencyContactForPatientInput,
+  ): Promise<EmergencyContact> {
+    const { contactId, ...updateData } = updateEmergencyContactForPatientInput;
+
+    const emergency_contact =
+      await this.emergencyContactRepository.findOneOrFail({
+        where: { contactId },
+      });
+
+    Object.assign(emergency_contact, updateData);
+
+    return this.emergencyContactRepository.save(emergency_contact);
   }
 }

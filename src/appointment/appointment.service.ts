@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { PatientInformation } from 'src/patient_information/patient_information.entity';
 import { CreateAppointmentForPatientInput } from './dto/create-appointment-for-patient.input';
 import { App } from 'supertest/types';
+import { UpdateAppointmentForPatientInput } from './dto/update-appointment-for-patient.input';
 
 @Injectable()
 export class AppointmentService {
@@ -50,5 +51,21 @@ export class AppointmentService {
         },
       },
     });
+  }
+
+  //Update Appointment for Patient
+
+  async updateAppointmentForPatient(
+    updateAppointmentForPatientInput: UpdateAppointmentForPatientInput,
+  ): Promise<Appointment> {
+    const { appointmentId, ...updateData } = updateAppointmentForPatientInput;
+
+    const appointment = await this.appointmentRepository.findOneOrFail({
+      where: { appointmentId },
+    });
+
+    Object.assign(appointment, updateData);
+
+    return this.appointmentRepository.save(appointment);
   }
 }

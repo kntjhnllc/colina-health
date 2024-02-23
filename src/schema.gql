@@ -108,11 +108,17 @@ type Mutation {
   updatePatientInformation(updatePatientInformationInput: UpdatePatientInformationInput!): PatientInformation!
   createMedicationForPatient(createMedicationForPatientInput: CreateMedicationForPatientInput!): Medication!
   createVitalSignsForPatient(createVitalSignsForPatientInput: CreateVitalSignsForPatientInput!): VitalSigns!
+  updateVitalSignsForPatient(updateVitalSignsForPatientInput: UpdateVitalSignsForPatientInput!): VitalSigns!
   createMedicalHistoryForPatient(createMedicalHistoryForPatientInput: CreateMedicalHistoryForPatientInput!): MedicalHistory!
+  updateMedicalHistoryForPatient(updateMedicalHistoryForPatientInput: UpdateMedicalHistoryForPatientInput!): MedicalHistory!
   createLabResultsForPatient(createLabResultsForPatientInput: CreateLabResultsForPatientInput!): LabResults!
+  updateLabResultsForPatient(updateLabResultsForPatientInput: UpdateLabResultsForPatientInput!): LabResults!
   createNotesForPatient(createNotesForPatientInput: CreateNotesForPatientInput!): Notes!
+  updateNotesForPatient(updateNotesForPatientInput: UpdateNotesForPatientInput!): Notes!
   createAppointmentForPatient(createAppointmentForPatientInput: CreateAppointmentForPatientInput!): Appointment!
+  updateAppointmentForPatient(updateAppointmentForPatientInput: UpdateAppointmentForPatientInput!): Appointment!
   createEmergencyContactForPatient(createEmergencyContactForPatientInput: CreateEmergencyContactForPatientInput!): EmergencyContact!
+  updateEmergencyContactForPatient(updateEmergencyContactForPatientInput: UpdateEmergencyContactForPatientInput!): EmergencyContact!
 }
 
 input CreatePatientInformationInput {
@@ -160,12 +166,31 @@ input CreateVitalSignsForPatientInput {
   respiratoryRate: String!
 }
 
+input UpdateVitalSignsForPatientInput {
+  patientId: Float!
+  vitalSignsNo: Float!
+  date: DateTime
+  bloodPressure: String
+  heartRate: String
+  temperature: String
+  respiratoryRate: String
+}
+
 input CreateMedicalHistoryForPatientInput {
   patientId: Int!
   allergies: String!
   medicalCondition: String!
   surgeries: String!
   familyHistory: String!
+}
+
+input UpdateMedicalHistoryForPatientInput {
+  patientId: Float!
+  medicalHistoryNo: Float!
+  allergies: String
+  medicalConditions: String
+  surgeries: String
+  familyHistory: String
 }
 
 input CreateLabResultsForPatientInput {
@@ -179,10 +204,29 @@ input CreateLabResultsForPatientInput {
   triglycerides: String!
 }
 
+input UpdateLabResultsForPatientInput {
+  patientId: Float!
+  labResultsNo: Float!
+  date: DateTime
+  hemoglobinA1C: String
+  fastingBloodGlucose: String
+  totalCholesterol: String
+  ldlCholesterol: String
+  hdlCholesterol: String
+  triglycerides: String
+}
+
 input CreateNotesForPatientInput {
   patientId: Float!
   date: DateTime!
   notes: String!
+}
+
+input UpdateNotesForPatientInput {
+  patientId: Float!
+  noteNo: Float!
+  date: DateTime
+  notes: String
 }
 
 input CreateAppointmentForPatientInput {
@@ -192,6 +236,16 @@ input CreateAppointmentForPatientInput {
   appointmentTime: String!
   details: String!
   appointmentStatus: String!
+}
+
+input UpdateAppointmentForPatientInput {
+  patientId: Float!
+  appointmentId: Float!
+  dateCreated: DateTime
+  appointmentDate: DateTime
+  appointmentTime: String
+  details: String
+  appointmentStatus: String
 }
 
 input CreateEmergencyContactForPatientInput {
@@ -204,4 +258,17 @@ input CreateEmergencyContactForPatientInput {
   state: String!
   zip: String!
   country: String!
+}
+
+input UpdateEmergencyContactForPatientInput {
+  patientId: Float!
+  contactId: Float!
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  patientRelationship: String
+  city: String
+  state: String
+  zip: String
+  country: String
 }

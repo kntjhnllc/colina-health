@@ -2,6 +2,7 @@ import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Notes } from './notes.entity';
 import { NotesService } from './notes.service';
 import { CreateNotesForPatientInput } from './dto/create-notes.input';
+import { UpdateNotesForPatientInput } from './dto/update-notes.input';
 
 @Resolver(() => Notes)
 export class NotesResolver {
@@ -54,6 +55,34 @@ export class NotesResolver {
     } catch (error) {
       console.error('Error creating notes for patient:', error);
       throw new Error('Failed to create notes for patient');
+    }
+  }
+
+  // UPDATE NOTES FOR PATIENT
+
+  //   mutation {
+  //     updateNotesForPatient(updateNotesForPatientInput: {
+  //      patientId: 1,
+  //      noteNo: 1,
+  //       notes: "Hi hello tring to update"
+  //     }) {
+  //    noteNo
+  //    notes
+  //     }
+  // }
+
+  @Mutation(() => Notes)
+  async updateNotesForPatient(
+    @Args('updateNotesForPatientInput')
+    updateNotesForPatientInput: UpdateNotesForPatientInput,
+  ): Promise<Notes> {
+    try {
+      return this.notesService.updateNotesForPatient(
+        updateNotesForPatientInput,
+      );
+    } catch (error) {
+      console.error('Error updating notes:', error);
+      throw new Error('Failed to update notes');
     }
   }
 }

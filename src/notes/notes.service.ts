@@ -4,6 +4,8 @@ import { Notes } from './notes.entity';
 import { Repository } from 'typeorm';
 import { PatientInformation } from 'src/patient_information/patient_information.entity';
 import { CreateNotesForPatientInput } from './dto/create-notes.input';
+import { UpdateNotesForPatientInput } from './dto/update-notes.input';
+import { UpdateAppointmentForPatientInput } from 'src/appointment/dto/update-appointment-for-patient.input';
 
 @Injectable()
 export class NotesService {
@@ -43,5 +45,23 @@ export class NotesService {
         },
       },
     });
+  }
+
+  //Update Notes for Patient
+
+  async updateNotesForPatient(
+    updateNotesForPatientInput: UpdateNotesForPatientInput,
+  ): Promise<Notes> {
+    const { noteNo, ...updateData } = updateNotesForPatientInput;
+
+    const notes = await this.notesRepository.findOneOrFail({
+      where: {
+        noteNo,
+      },
+    });
+
+    Object.assign(notes, updateData);
+
+    return this.notesRepository.save(notes);
   }
 }

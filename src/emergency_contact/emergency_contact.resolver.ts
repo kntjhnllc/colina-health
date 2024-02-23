@@ -2,6 +2,7 @@ import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { EmergencyContact } from './emergency-contact.entity';
 import { EmergencyContactService } from './emergency_contact.service';
 import { CreateEmergencyContactForPatientInput } from './dto/create-emergency-contact-for-patient.input';
+import { UpdateEmergencyContactForPatientInput } from './dto/update-emergency-contact.input';
 
 @Resolver(() => EmergencyContact)
 export class EmergencyContactResolver {
@@ -71,5 +72,32 @@ export class EmergencyContactResolver {
     return this.emergencyContactService.createEmergencyContactForPatient(
       createEmergencyContactForPatientInput,
     );
+  }
+
+  // Update Emergency Contact
+
+  // mutation {
+  //   updateEmergencyContactForPatient(updateEmergencyContactForPatientInput: {
+  //    patientId: 1,
+  //    contactId: 1,
+  //     country: "Davao"
+  //   }) {
+  //  country
+  //   }
+  // }
+
+  @Mutation(() => EmergencyContact)
+  async updateEmergencyContactForPatient(
+    @Args('updateEmergencyContactForPatientInput')
+    updateEmergencyContactForPatientInput: UpdateEmergencyContactForPatientInput,
+  ): Promise<EmergencyContact> {
+    try {
+      return this.emergencyContactService.updateEmergencyContactForPatient(
+        updateEmergencyContactForPatientInput,
+      );
+    } catch (error) {
+      console.error('Error updating emergency contact:', error);
+      throw new Error('Failed to update emergency contact');
+    }
   }
 }
