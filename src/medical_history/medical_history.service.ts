@@ -4,6 +4,7 @@ import { MedicalHistory } from './medical_history.entity';
 import { Repository } from 'typeorm';
 import { PatientInformation } from 'src/patient_information/patient_information.entity';
 import { CreateMedicalHistoryForPatientInput } from './dto/create-medical-history.input';
+import { UpdateMedicalHistoryForPatientInput } from './dto/update-medical-history-for-patient.input';
 
 @Injectable()
 export class MedicalHistoryService {
@@ -43,5 +44,24 @@ export class MedicalHistoryService {
     return this.medicalHistoryRepository.find({
       where: { patient: { patientId } },
     });
+  }
+
+  //Update Medical History for Patient
+
+  async updateMedicalHistoryForPatient(
+    updateMedicalHistoryForPatientInput: UpdateMedicalHistoryForPatientInput,
+  ): Promise<MedicalHistory> {
+    const { medicalHistoryNo, ...updateData } =
+      updateMedicalHistoryForPatientInput;
+
+    const medical_history = await this.medicalHistoryRepository.findOneOrFail({
+      where: {
+        medicalHistoryNo,
+      },
+    });
+
+    Object.assign(medical_history, updateData);
+
+    return this.medicalHistoryRepository.save(medical_history);
   }
 }

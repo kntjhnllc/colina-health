@@ -4,6 +4,8 @@ import { LabResults } from './lab_results.entity';
 import { Repository } from 'typeorm';
 import { PatientInformation } from 'src/patient_information/patient_information.entity';
 import { CreateLabResultsForPatientInput } from './dto/create-lab-results-for-patient.input';
+import { UpdateAppointmentForPatientInput } from 'src/appointment/dto/update-appointment-for-patient.input';
+import { UpdateLabResultsForPatientInput } from './dto/update-lab-results.input';
 
 @Injectable()
 export class LabResultsService {
@@ -45,5 +47,21 @@ export class LabResultsService {
     return this.labResultsRepository.find({
       where: { patient: { patientId } },
     });
+  }
+
+  async updateLabResultsForPatient(
+    updateLabResultsForPatientInput: UpdateLabResultsForPatientInput,
+  ): Promise<LabResults> {
+    const { labResultsNo, ...updateData } = updateLabResultsForPatientInput;
+
+    const lab_results = await this.labResultsRepository.findOneOrFail({
+      where: {
+        labResultsNo,
+      },
+    });
+
+    Object.assign(lab_results, updateData);
+
+    return this.labResultsRepository.save(lab_results);
   }
 }

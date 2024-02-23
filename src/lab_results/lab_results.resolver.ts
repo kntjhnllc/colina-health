@@ -2,6 +2,7 @@ import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { LabResults } from './lab_results.entity';
 import { LabResultsService } from './lab_results.service';
 import { CreateLabResultsForPatientInput } from './dto/create-lab-results-for-patient.input';
+import { UpdateLabResultsForPatientInput } from './dto/update-lab-results.input';
 
 @Resolver(() => LabResults)
 export class LabResultsResolver {
@@ -65,5 +66,32 @@ export class LabResultsResolver {
     return this.labResultsService.createLabResultsForPatient(
       createLabResultsForPatientInput,
     );
+  }
+
+  // UPDATE LAB RESULTS
+
+  //   mutation {
+  //     updateLabResultsForPatient(updateLabResultsForPatientInput: {
+  //      patientId: 1,
+  //      labResultsNo: 1,
+  //       fastingBloodGlucose: "130 mg/dl"
+  //     }) {
+  //    fastingBloodGlucose
+  //     }
+  // }
+
+  @Mutation(() => LabResults)
+  async updateLabResultsForPatient(
+    @Args('updateLabResultsForPatientInput')
+    updateLabResultsForPatientInput: UpdateLabResultsForPatientInput,
+  ): Promise<LabResults> {
+    try {
+      return this.labResultsService.updateLabResultsForPatient(
+        updateLabResultsForPatientInput,
+      );
+    } catch (error) {
+      console.error('Error updating lab results:', error);
+      throw new Error('Failed to update lab results');
+    }
   }
 }

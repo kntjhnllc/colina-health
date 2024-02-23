@@ -2,6 +2,7 @@ import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Appointment } from './appointment.entity';
 import { AppointmentService } from './appointment.service';
 import { CreateAppointmentForPatientInput } from './dto/create-appointment-for-patient.input';
+import { UpdateAppointmentForPatientInput } from './dto/update-appointment-for-patient.input';
 
 @Resolver(() => Appointment)
 export class AppointmentResolver {
@@ -57,5 +58,33 @@ export class AppointmentResolver {
     return this.appointmentService.createAppointmentForPatient(
       createAppointmentForPatientInput,
     );
+  }
+
+  // UPDATE APPOINTMENT FOR PATIENT
+
+  // mutation {
+  //   updateAppointmentForPatient(updateAppointmentForPatientInput: {
+  //    patientId: 1,
+  //    appointmentId: 1,
+  //     details: "try updating"
+  //   }) {
+  //  appointmentId
+  //     details
+  //   }
+  // }
+
+  @Mutation(() => Appointment)
+  async updateAppointmentForPatient(
+    @Args('updateAppointmentForPatientInput')
+    updateAppointmentForPatientInput: UpdateAppointmentForPatientInput,
+  ): Promise<Appointment> {
+    try {
+      return this.appointmentService.updateAppointmentForPatient(
+        updateAppointmentForPatientInput,
+      );
+    } catch (error) {
+      console.error('Error updating appointment:', error);
+      throw new Error('Failed to update appointment');
+    }
   }
 }

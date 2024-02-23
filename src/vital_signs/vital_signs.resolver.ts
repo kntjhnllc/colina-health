@@ -3,6 +3,7 @@ import { VitalSigns } from './vital_signs.entity';
 import { VitalSignsService } from './vital_signs.service';
 import { Query } from '@nestjs/graphql';
 import { CreateVitalSignsForPatientInput } from './dto/create-vital-signs-for-patient.input';
+import { UpdateVitalSignsForPatientInput } from './dto/update-vital-signs-for-patient.input';
 
 @Resolver(() => VitalSigns)
 export class VitalSignsResolver {
@@ -60,6 +61,34 @@ export class VitalSignsResolver {
     } catch (error) {
       console.error('Error creating vital signs for patient:', error);
       throw new Error('Failed to create vital signs for patient');
+    }
+  }
+
+  //UPDATE VITAL SIGNS FOR PATIENT MUTATION
+
+  //   mutation {
+  //     updateVitalSignsForPatient(updateVitalSignsForPatientInput: {
+  //      patientId: 1,
+  //      vitalSignsNo: 1,
+  //       heartRate: "90"
+  //     }) {
+  //    vitalSignsNo
+  //    heartRate
+  //     }
+  // }
+
+  @Mutation(() => VitalSigns)
+  async updateVitalSignsForPatient(
+    @Args('updateVitalSignsForPatientInput')
+    updateVitalSignsForPatientInput: UpdateVitalSignsForPatientInput,
+  ): Promise<VitalSigns> {
+    try {
+      return this.vitalSignsService.updateVitalSignsForPatient(
+        updateVitalSignsForPatientInput,
+      );
+    } catch (error) {
+      console.error('Error updating vital signs:', error);
+      throw new Error('Failed to update vital signs');
     }
   }
 }
