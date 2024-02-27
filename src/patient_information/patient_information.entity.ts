@@ -11,7 +11,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 @ObjectType()
 export class PatientInformation {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   @Field((type) => Int)
   patientId: number;
 
@@ -22,6 +22,10 @@ export class PatientInformation {
   @Column()
   @Field()
   lastName: string;
+
+  @Column({ nullable: true })
+  @Field((type) => Int)
+  age: number;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   @Field()
