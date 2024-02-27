@@ -12,6 +12,20 @@ export class PatientInformationService {
     private patientInformationRepository: Repository<PatientInformation>,
   ) {}
 
+  async getAllPatients(): Promise<PatientInformation[]> {
+    return this.patientInformationRepository.find({
+      relations: [
+        'medications',
+        'vital_signs',
+        'medical_history',
+        'lab_results',
+        'notes',
+        'appointment',
+        'emergency_contact',
+      ],
+    });
+  }
+
   async getAllPatientsWithDetails(): Promise<PatientInformation[]> {
     return this.patientInformationRepository.find({
       relations: [

@@ -1,39 +1,40 @@
-import { Field, InputType } from "@nestjs/graphql";
+import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-export class CreatePatientInformationInput{
+export class CreatePatientInformationInput {
+  @Field()
+  firstName: string;
 
-    @Field()
-    firstName: string;
+  @Field()
+  lastName: string;
 
-    @Field()
-    lastName: string;
+  @Field()
+  age: number;
 
-    @Field()
-    dateOfBirth: Date;
+  @Field()
+  dateOfBirth: Date;
 
-    @Field()
-    gender: string;
+  @Field()
+  gender: string;
 
-    @Field()
-    city: string;
+  @Field()
+  city: string;
 
-    @Field()
-    state: string;
+  @Field()
+  state: string;
 
-    @Field()
-    zip: string;
+  @Field()
+  zip: string;
 
-    @Field()
-    country: string;
+  @Field()
+  country: string;
 
-    @Field()
-    phoneNo: string;
+  @Field()
+  phoneNo: string;
 
-    @Field()
-    allergies: string;
-    
-    @Field()
-    codeStatus: string;
+  @Field()
+  allergies: string;
 
+  @Field()
+  codeStatus: string;
 }
