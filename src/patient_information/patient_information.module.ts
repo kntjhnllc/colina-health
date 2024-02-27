@@ -9,6 +9,7 @@ import { MedicalHistory } from 'src/medical_history/medical_history.entity';
 import { Notes } from 'src/notes/notes.entity';
 import { Appointment } from 'src/appointment/appointment.entity';
 import { EmergencyContact } from 'src/emergency_contact/emergency-contact.entity';
+import { PatientInformationController } from './patient_information.controller';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { EmergencyContact } from 'src/emergency_contact/emergency-contact.entity
       EmergencyContact,
     ]),
   ],
+  controllers: [PatientInformationController],
   providers: [PatientInformationService, PatientInformationResolver],
 })
 export class PatientInformationModule {}
